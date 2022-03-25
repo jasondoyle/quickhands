@@ -30,17 +30,17 @@ function Auth() {
         .catch(function (error) {
           console.log(error);
         });
-    	}
+      }
   }
 
   const handleLogout = async () => {
     await logout();
     console.log("logged out");
     document.getElementById('login').innerHTML = "Metamask Login";
-	}
+  }
 
-	return(
-		<Box sx={{ mb: 4 }}>
+  return(
+    <Box sx={{ mb: 4 }}>
       <Button
         variant={!isAuthenticated?"contained":"outlined"}
         id="login"
@@ -55,8 +55,8 @@ function Auth() {
       <p>
         {isAuthenticating ? <img src={spinner} /> : null}
       </p>
-    </Box>		
-	)
+    </Box>    
+  )
 }
 
 export default Auth;
