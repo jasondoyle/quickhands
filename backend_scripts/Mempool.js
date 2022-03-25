@@ -59,7 +59,7 @@ class Mempool {
 						user.triggered.push(token);
 
 						console.log('[!] SCAM ALERT [!]');
-						console.log('hash => https://testnet.bscscan.com/tx/' + tx.hash);
+						console.log('hash => https://bscscan.com/tx/' + tx.hash);
 						console.log('victim => ', from);
 						console.log('token => ', token);
 						/**
