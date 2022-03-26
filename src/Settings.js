@@ -14,7 +14,7 @@ import { getUserProfile, deleteUser } from './Web3Client';
 function Settings() {
     const { user, Moralis } = useMoralis();
     const [gasPricePercent, setGasPricePercent] = useState(200);
-    const [gasLimitPercent, setGasLimitPercent] = useState(120);
+    const [gasLimitPercent, setGasLimitPercent] = useState(100);
     const [gasPriceLoader, setGasPriceLoader] = useState(false); 
     const [gasLimitLoader, setGasLimitLoader] = useState(false);
 
@@ -22,7 +22,7 @@ function Settings() {
         async function getGasConfig() {
             setGasPriceLoader(true);
             setGasLimitLoader(true);
-            const {pricePercent = 200, limitPercent = 120} = await Moralis.Cloud.run(
+            const {pricePercent = 200, limitPercent = 100} = await Moralis.Cloud.run(
                 'getGasConfig',
                 {'userAddr': user.get('ethAddress')} 
             );
@@ -141,7 +141,7 @@ function Settings() {
                                 step={10}
                                 marks={marks}
                                 min={10}
-                                max={300}
+                                max={200}
                                 valueLabelDisplay="auto"
                             />
                         </div>
