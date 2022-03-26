@@ -1,16 +1,20 @@
 require('dotenv').config();
 const Web3 = require('web3');
+const EventEmitter = require('events');
 const Moralis = require('moralis/node');
 const User = require('./User.js');
 const { masterKey, appId, serverUrl } = process.env;
 const { QUICKHANDS_CONTRACT_ADDRESS, HTTPS_PROVIDER_BSCMAINNET, WSS_PROVIDER_BSCMAINNET } = process.env;
 
-class Mempool {
+//class QHEmitter extends EventEmitter { };
+
+class Mempool extends EventEmitter {
     web3;
     web3ws;
     users = [];
 
     constructor(users) {
+        super();
         this.users = users;
         this.web3 = new Web3(new Web3.providers.HttpProvider(
             HTTPS_PROVIDER_BSCMAINNET
@@ -55,25 +59,14 @@ class Mempool {
                         if (!user.enrolledTokens.includes(token) || user.triggered.includes(token)) return
                         if (method != approveMethodId && method != transferMethodId) return
 
-                        // track tokens that have triggered so we don't duplicate the tx
-                        user.triggered.push(token);
-
-                        console.log('[!] SCAM ALERT [!]');
-                        console.log('hash => https://bscscan.com/tx/' + tx.hash);
-                        console.log('victim => ', from);
-                        console.log('token => ', token);
-                        /**
-                        console.log('gasPrice => ', tx.gasPrice);
-                        console.log('gasLimit => ', tx.gas);
-                        **/
-
-                        // execute transfer to users backup wallet
-                        user.rescueToken(
-                            tx.hash, // scammer tx that triggered rescue
-                            token, // token being stolen
-                            tx.gasPrice, // gas price of scammer 
-                            tx.gas // gas limit of scammer
-                        )
+                        this.emit('scam', {
+                            'user': user, // QH User object
+                            'hash': tx.hash,
+                            'victim': from,
+                            'token': token,
+                            'gasPrice': tx.gasPrice,
+                            'gas': tx.gas
+                        });   
                         subscription.unsubscribe();  // hack for demo since throttled
                     })
                 } catch (err) {

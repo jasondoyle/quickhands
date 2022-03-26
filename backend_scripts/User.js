@@ -57,10 +57,10 @@ class User{
         }
     }
 
-    // gasPrice defaults to 200% of scammer tx and gasLimit to 120%
+    // gasPrice defaults to 200% of scammer tx and gasLimit to 100%
     getUserConfiguredGas = async () => { 
         await Moralis.start({ serverUrl, appId, masterKey });
-        const { pricePercent = 200 , limitPercent = 120 } = await Moralis.Cloud.run(
+        const { pricePercent = 150 , limitPercent = 100 } = await Moralis.Cloud.run(
             'getGasConfig', 
             {'userAddr': this.userAddr}
         );  
@@ -113,12 +113,6 @@ class User{
         // apply user gas price adjustment as percent of scammer tx 
         gasPrice *= ( this.gasPricePercent / 100 );
         gasLimit *= ( this.gasLimitPercent / 100 );
-        /**
-        console.log('front-run gas price => ', gasPrice);
-        console.log('front-run gas limit => ', gasLimit);
-        console.log('user configured gas percent => ', this.gasPricePercent);
-        console.log('user configured gas limit => ', this.gasLimitPercent);
-        **/
 
         // transfer entire token balance to backup wallet
         let amount = await this.getTokenBalance(token);  
