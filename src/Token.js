@@ -20,8 +20,6 @@ function Token(props) {
     let localLogos = getTokenLogos();
     let logo = props.logo?props.logo:localLogos[props.symbol];
 
-    // FIX THIS - buggy as hell 
-    // fix return values of each function as most return undefined and mess up the button state
     async function handleProtectToken(token) {
         let approved = false;
         let didEnroll = false;
@@ -34,24 +32,23 @@ function Token(props) {
         // first ensure token is approved for max spending
         approved = await approveToken(token, amount);
 
-        if (approved) { // then get allowance and enroll token to qh contract
-            allowance = await getAllowance(token);                                  // BUG returns undefined
+        if (approved) { // then get allowance and enroll token to smart contract
+            allowance = await getAllowance(token);
             setAllowance(allowance); 
 
             if (await tokenEnrolledInContract(token)) {
                 setTokenEnrolled(true);
             } else {
-                didEnroll = await enrollToken(token);                               // BUG returns undefined
+                didEnroll = await enrollToken(token);
                 if (didEnroll) setTokenEnrolled(true);
             }
         }
         setLoading(false);
     }
 
-    async function handleRevokeToken(token) { // consider a delete token method from smart contract
+    async function handleRevokeToken(token) {
         setLoading(true);
         await revokeToken(token, 0); // set allowance to 0
-        console.log('get allowance => ', await getAllowance(token));                // BUG returns undefined
         setAllowance(await getAllowance(token));
         setLoading(false);
     }

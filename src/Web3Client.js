@@ -86,7 +86,9 @@ export const getAllowance = async (token) => {
       QUICKHANDS_CONTRACT_ADDRESS
     )
     .call({from: selectedAccount})
-    .then(console.log)
+    .then(function(result){
+      return result;
+    })
     .catch(console.error);
 }
 
@@ -104,8 +106,14 @@ export const revokeToken = async (token) => {
       amount
     )
     .send({from: selectedAccount})
-    .then(console.log)
-    .catch(console.error);
+    .on('receipt"', function (receipt) {
+        console.log(receipt);
+        return true;
+    })
+    .on('error', function (error) {
+        console.log(error);
+        return false;
+    });
 }
 
 export const approveToken = async (token, amount) => {
@@ -121,11 +129,14 @@ export const approveToken = async (token, amount) => {
       amount
     )
     .send({from: selectedAccount})
-    .then((tx) => function(tx) {
-        console.log(tx);
+    .on('receipt"', function (receipt) {
+        console.log(receipt);
         return true;
     })
-    .catch(console.error);
+    .on('error', function (error) {
+        console.log(error);
+        return false;
+    });
 }
 
 export const enrollToken = async (token) => {
@@ -138,8 +149,14 @@ export const enrollToken = async (token) => {
       token
     )
     .send({from: selectedAccount})
-    .then(console.log)
-    .catch(console.error);
+    .on('receipt"', function (receipt) {
+        console.log(receipt);
+        return true;
+    })
+    .on('error', function (error) {
+        console.log(error);
+        return false;
+    });
 }
 
 export const getUserProfile = async () => {
