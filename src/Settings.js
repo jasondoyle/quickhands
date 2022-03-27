@@ -5,10 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-//import Paper from '@mui/material/Paper';
-//import { DataGrid } from '@mui/x-data-grid';
 import { useMoralis } from 'react-moralis';
-//import { numberToHex, weiToNum } from './Web3Client';
 import { getUserProfile, deleteUser } from './Web3Client';
 
 function Settings() {
