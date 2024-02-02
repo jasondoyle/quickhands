@@ -5,7 +5,7 @@ It began as an idea to figure out a way to protect a user’s tokens before thei
 
 The scam detection was originally thought to work in two ways. When manually set to armed by the user, the backend would trigger a front-running transaction anytime an enrolled token was being sent out of the user’s wallet. This would be triggered by the detection of either a IERC20.transfer() or IERC20.approve() method being called. I’m sure there are more methods that would need to be accounted for if the project were to be pursued more seriously. And, when unarmed, the user’s wallet would still being protected to an extent by watching for any transactions removing funds by a known scam address. I actually never found a good source of malicious wallet or contract addresses that was being updated regularly. 
 
-It wasn't long before I realized this project wouldn’t go anywhere but I finished it anyways because I wanted to create a first Dapp that was a bit more sophisticated than “Hello World”. Anyways, here are the reasons in my opinion, ordered from bad to showstopper, as to why this would never be an actual solution.
+It wasn't long before I realized this project wouldn’t go anywhere but I finished it anyways because I wanted to create my first dApp that served as an interesting POC. Anyways, here are the reasons in my opinion, ordered from bad to showstopper, as to why this would never be an actual solution.
 
 1. No one wants to sign a contract with unlimited spend approval as it increases their exposure and risk of loss. 
 2. As a guess, the majority of victims falling for these types of scams wouldn’t have any idea they should enroll in a security service to protect their tokens. And the more sophisticated users would refer to my first point #1. 
